@@ -1,0 +1,34 @@
+{
+  "env": {
+    "mocha": true,
+    "node": true
+  },
+  "rules": {
+
+    // Possible Errors
+
+    // disallow use of console in the node environment
+    "no-console": 2,
+    // Ensure JSDoc comments are valid
+    "valid-jsdoc": 0,
+
+    // Best Practices
+
+    // encourages use of dot notation whenever possible
+    "dot-notation": [2, {"allowKeywords": true}],
+    // disallow the use of magic numbers
+    "no-magic-numbers": 0,
+
+    // Variables
+
+    // disallow use of undefined variable
+    "no-undefined": 0,
+
+    // Stylistic Issues
+
+    // enforce padding within blocks
+    "padded-blocks": 0,
+    // Require JSDoc comment
+    "require-jsdoc": 0
+  }
+}
