@@ -1,41 +1,13 @@
 'use strict';
 
-var expect = require('chai').expect;
-
 describe('Linear', function () {
 
-  it('should export a factory function', function () {
-    global.window = {
-      Tiler: {
-        propagate: {
-          register: function (name, factory) {
-            expect(name).to.equal('Linear');
-            expect(factory).to.be.a('function');
-
-            var Linear = factory();
-
-            expect(Linear).to.be.a('function');
-            expect(Linear).to.respondTo('run');
-
-            delete global.window;
-          }
-        }
-      }
-    };
-
-    require('../../lib/propagations/linear');
-  });
-
-  it('should register', function () {
-    var Tiler = require('../utils/loader')(['Linear']);
-
+  it('should expose the propagation interface', function () {
     expect(Tiler.propagate.propagations.linear).to.be.a('function');
     expect(Tiler.propagate.propagations.linear).to.respondTo('run');
   });
 
   it('should propagate linearly over all elements', function (done) {
-    var Tiler = require('../utils/loader')(['Linear']);
-
     var elements = ['A', 'B', 'C', 'D'];
 
     var scenarios = [

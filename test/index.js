@@ -1,12 +1,9 @@
 'use strict';
 
-var expect = require('chai').expect;
-
-var Tiler = require('./utils/loader')();
-
 describe('Tiler.propagate', function () {
 
   it('should be a function', function () {
+    expect(window.Tiler).to.be.an('object');
     expect(Tiler.propagate).to.be.a('function');
   });
 
@@ -64,20 +61,25 @@ describe('Tiler.propagate', function () {
   });
 
   it('should convert a NodeList to an Array', function () {
-    var list = new NodeList('Hello, friend.', 42);
+    var p = document.createElement('p');
+    var a = document.createElement('a');
+    var div = document.createElement('div');
+
+    div.appendChild(p);
+    div.appendChild(a);
 
     var PropagationMock = function (elements) {
       expect(elements).to.be.an.instanceOf(Array);
       expect(elements.length).to.equal(2);
-      expect(elements[0]).to.equal('Hello, friend.');
-      expect(elements[1]).to.equal(42);
+      expect(elements[0]).to.equal(p);
+      expect(elements[1]).to.equal(a);
     };
 
     PropagationMock.prototype.run = function () {};
 
     Tiler.propagate.propagations.mock = PropagationMock;
 
-    Tiler.propagate('Mock', list);
+    Tiler.propagate('Mock', div.childNodes);
   });
 
   describe('register()', function () {

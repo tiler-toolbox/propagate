@@ -3,6 +3,10 @@
     "mocha": true,
     "node": true
   },
+  "globals": {
+    "Tiler": false,
+    "expect": false
+  },
   "rules": {
 
     // Possible Errors
