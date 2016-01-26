@@ -10,13 +10,19 @@
     "Array",
     "propagation"
   ],
+  "homepage": "https://github.com/tiler-toolbox/propagate",
+  "bugs": "https://github.com/tiler-toolbox/propagate/issues",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/tiler-toolbox/propagate.git"
+  },
   "scripts": {
     "build": "gulp build",
     "test": "karma start --single-run",
-    "coverage": "karma start --single-run --reporters dots,coverage",
+    "coverage": "karma start --single-run --reporters progress,coverage",
     "lint": "eslint lib test gulpfile.js",
-    "preversion": "npm run lint && npm test",
-    "version": "sed -r \"/\\[Unreleased\\]\\[unreleased\\]/a \\\n## [$npm_package_version][`date +%F`]\" -i CHANGELOG.md && git add CHANGELOG.md docs/",
+    "preversion": "npm run lint && npm run coverage",
+    "version": "sed -r \"/\\[Unreleased\\]\\[unreleased\\]/a \\\n## [$npm_package_version][`date +%F`]\" -i CHANGELOG.md && git add CHANGELOG.md",
     "postversion": "git push --follow-tags"
   },
   "devDependencies": {
