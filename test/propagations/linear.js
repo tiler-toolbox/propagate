@@ -3,8 +3,8 @@
 describe('Linear', function () {
 
   it('should expose the propagation interface', function () {
-    expect(Tiler.propagate.propagations.linear).to.be.a('function');
-    expect(Tiler.propagate.propagations.linear).to.respondTo('run');
+    expect(Tiler.propagations.linear).to.be.a('function');
+    expect(Tiler.propagations.linear).to.respondTo('run');
   });
 
   it('should propagate linearly over all elements', function (done) {

@@ -5,7 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased][unreleased]
 ### Added
 - `Tiler.propagate()` function
-- `Tiler.propagate.register()` function
+- `Tiler.propagation()` function
+- `Tiler.propagation.register()` function
 - 'All' propagation
 - 'Linear' propagation
 - Tests and lint

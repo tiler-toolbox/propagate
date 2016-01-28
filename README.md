@@ -24,7 +24,7 @@ Tiler.propagate(propagation, elements, parameters, callback, finish)
 | **callback**    | Function | Function called with for each element with the element and his index as parameters |
 | **finish**      | Function | Function called when the propagation is done                                       |
 
-###### Example
+##### Example
 
 ```js
 Tiler.propagate('All', elements, {}, function (element, index) {
@@ -37,21 +37,9 @@ Tiler.propagate('All', elements, {}, function (element, index) {
 #### Instanciation
 
 If the same propagation will be applied multiple times, it can be instantiated only one time then be runned
-several times. All propagations are available in the `Tiler.propagate.propagation` namespace.
+several times using the `Tiler.propagation()` factory.
 
-**Warning :** In the `Tiler.propagate.propagation` namespace, the propagation names are in lower case (for example
-propagation 'All' is `Tiler.propagate.propagations.all`)
-
-All propagations expose the same interface.
-
-```js
-constructor(elements, parameters);
-```
-
-| Parameter       | Type     | Description             |
-| --------------- | -------- | ----------------------- |
-| **elements**    | Array    | Array to propagate into |
-| **parameters**  | Object   | Propagation parameters  |
+All propagations implement the same interface:
 
 ```js
 run(callback, finish);
@@ -62,10 +50,10 @@ run(callback, finish);
 | **callback**    | Function | Callback called with for each element with the element and his index as parameters |
 | **finish**      | Function | Callback called when the propagation is done                                       |
 
-###### Example
+##### Example
 
 ```js
-var propagation = Tiler.propagate.propagations.all(elements, {});
+var propagation = Tiler.propagation('All', elements, {});
 
 propagation.run(function (element, index) {
   console.log(index, '->', element);
@@ -76,27 +64,37 @@ propagation.run(function (element, index) {
 
 ## Propagations
 
-##### All
+#### All
 
 ```js
-Tiler.propagate.propagations.all
+// Direct call
+Tiler.propagate('All', elements, parameters, callback, finish);
+
+// Instanciation
+var propagation = Tiler.propagation('All', elements, parameters);
 ```
 
 Simpliest propagation, trigger the callback on all elements simultaneously.
 
-###### Parameters
+##### Parameters
 
 None
 
-##### Linear
+---
+
+#### Linear
 
 ```js
-Tiler.propagate.propagations.linear
+// Direct call
+Tiler.propagate('Linear', elements, parameters, callback, finish);
+
+// Instanciation
+var propagation = Tiler.propagation('Linear', elements, parameters);
 ```
 
 Trigger one element at a time and line by line.
 
-###### Parameters
+##### Parameters
 
 | Parameter     | Type   | Description                                                                                                      |
 | ------------- | ------ | ---------------------------------------------------------------------------------------------------------------- |

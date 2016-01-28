@@ -3,8 +3,8 @@
 describe('All', function () {
 
   it('should expose the propagation interface', function () {
-    expect(Tiler.propagate.propagations.all).to.be.a('function');
-    expect(Tiler.propagate.propagations.all).to.respondTo('run');
+    expect(Tiler.propagations.all).to.be.a('function');
+    expect(Tiler.propagations.all).to.respondTo('run');
   });
 
   it('should propagate over all elements', function () {

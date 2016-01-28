@@ -1,19 +1,27 @@
 'use strict';
 
-describe('Tiler.propagate', function () {
+describe('Tiler.propagate()', function () {
+
+  afterEach(function () {
+    if (Tiler.propagations.hasOwnProperty('mock')) {
+      delete Tiler.propagations.mock;
+    }
+  });
 
   it('should be a function', function () {
     expect(window.Tiler).to.be.an('object');
     expect(Tiler.propagate).to.be.a('function');
   });
 
-  it('should expose register() and propagations', function () {
-    expect(Tiler.propagate).to.contains.keys(['register', 'propagations']);
-    expect(Tiler.propagate.register).to.be.a('function');
-    expect(Tiler.propagate.propagations).to.be.an('object');
+  it('should throw an error with unexistent propagation', function () {
+    expect(function () {
+      Tiler.propagate('Mock', []);
+    }).to.throws(Error, 'Propagation "Mock" does not exists');
   });
 
   it('should throw an error with bad parameters', function () {
+    Tiler.propagations.mock = function () {};
+
     [
       'string',
       true,
@@ -23,7 +31,7 @@ describe('Tiler.propagate', function () {
       null
     ].forEach(function (elements) {
       expect(function () {
-        Tiler.propagate('Test', elements);
+        Tiler.propagate('Mock', elements);
       }).to.throws(Error, 'Propagation elements must be an Array or a NodeList');
     });
   });
@@ -55,7 +63,7 @@ describe('Tiler.propagate', function () {
       expect(members.callback).to.equal(callback);
     };
 
-    Tiler.propagate.propagations.mock = PropagationMock;
+    Tiler.propagations.mock = PropagationMock;
 
     Tiler.propagate('Mock', elements, parameters, callback, finish);
   });
@@ -77,9 +85,43 @@ describe('Tiler.propagate', function () {
 
     PropagationMock.prototype.run = function () {};
 
-    Tiler.propagate.propagations.mock = PropagationMock;
+    Tiler.propagations.mock = PropagationMock;
 
     Tiler.propagate('Mock', div.childNodes);
+  });
+
+});
+
+describe('Tiler.propagation()', function () {
+
+  it('should be a function', function () {
+    expect(window.Tiler).to.be.an('object');
+    expect(Tiler.propagation).to.be.a('function');
+  });
+
+  it('should expose register()', function () {
+    expect(Tiler.propagation).to.contains.keys(['register']);
+    expect(Tiler.propagation.register).to.be.a('function');
+  });
+
+  it('should throw an error with unexistent propagation', function () {
+    expect(function () {
+      Tiler.propagation('Mock', []);
+    }).to.throws(Error, 'Propagation "Mock" does not exists');
+  });
+
+  it('should instantiate a propagation', function () {
+    var elems  = ['A', 'B'];
+    var params = {test: true};
+
+    Tiler.propagations.mock = function (elements, parameters) {
+      expect(elements).to.equal(elems);
+      expect(parameters).to.equal(params);
+    };
+
+    var propagation = Tiler.propagation('Mock', elems, params);
+
+    expect(propagation).to.be.instanceOf(Tiler.propagations.mock);
   });
 
   describe('register()', function () {
@@ -87,20 +129,20 @@ describe('Tiler.propagate', function () {
     var PropagationMock = function () {};
 
     it('should add new propagations to the list', function () {
-      Tiler.propagate.register('Test', function () {
+      Tiler.propagation.register('Test', function () {
         return PropagationMock;
       });
 
-      expect(Tiler.propagate.propagations.test).to.be.a('function');
-      expect(Tiler.propagate.propagations.test).to.equal(PropagationMock);
+      expect(Tiler.propagations.test).to.be.a('function');
+      expect(Tiler.propagations.test).to.equal(PropagationMock);
     });
 
     it('should throw an error on propagation name conflict', function () {
       expect(function () {
-        Tiler.propagate.register('Test', function () {
+        Tiler.propagation.register('Test', function () {
           return PropagationMock;
         });
-      }).to.throws(Error, 'A propagation named "test" is already registered');
+      }).to.throws(Error, 'A propagation named "Test" is already registered');
     });
 
   });
