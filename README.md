@@ -16,13 +16,13 @@ The function `Tiler.propagate()` immediatly apply a propagation on an array.
 Tiler.propagate(propagation, elements, parameters, callback, finish)
 ```
 
-| Parameter       | Type     | Description                                                                        |
-| --------------- | -------- | ---------------------------------------------------------------------------------- |
-| **propagation** | String   | Name of the propagation to apply                                                   |
-| **elements**    | Array    | Array to propagate into                                                            |
-| **parameters**  | Object   | Propagation parameters                                                             |
-| **callback**    | Function | Function called with for each element with the element and his index as parameters |
-| **finish**      | Function | Function called when the propagation is done                                       |
+| Parameter         | Type     | Description                                                                        |
+| ----------------- | -------- | ---------------------------------------------------------------------------------- |
+| **propagation**   | String   | Name of the propagation to apply                                                   |
+| **elements**      | Array    | Array to propagate into                                                            |
+| [**parameters**]  | Object   | Propagation parameters                                                             |
+| **callback**      | Function | Function called with for each element with the element and his index as parameters |
+| **finish**        | Function | Function called when the propagation is done                                       |
 
 ##### Example
 
@@ -38,6 +38,16 @@ Tiler.propagate('All', elements, {}, function (element, index) {
 
 If the same propagation will be applied multiple times, it can be instantiated only one time then be runned
 several times using the `Tiler.propagation()` factory.
+
+```js
+Tiler.propagation(propagation, elements, parameters)
+```
+
+| Parameter         | Type     | Description                                                                        |
+| ----------------- | -------- | ---------------------------------------------------------------------------------- |
+| **propagation**   | String   | Name of the propagation to apply                                                   |
+| **elements**      | Array    | Array to propagate into                                                            |
+| [**parameters**]  | Object   | Propagation parameters                                                             |
 
 All propagations implement the same interface:
 
@@ -68,10 +78,10 @@ propagation.run(function (element, index) {
 
 ```js
 // Direct call
-Tiler.propagate('All', elements, parameters, callback, finish);
+Tiler.propagate('All', elements, callback, finish);
 
 // Instanciation
-var propagation = Tiler.propagation('All', elements, parameters);
+var propagation = Tiler.propagation('All', elements);
 ```
 
 Simpliest propagation, trigger the callback on all elements simultaneously.

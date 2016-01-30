@@ -68,6 +68,37 @@ describe('Tiler.propagate()', function () {
     Tiler.propagate('Mock', elements, parameters, callback, finish);
   });
 
+  it('should accept optional parameters', function () {
+    var members = {
+      elements:   null,
+      parameters: null,
+      callback:   null
+    };
+
+    var PropagationMock = function (elements, parameters) {
+      members.elements   = elements;
+      members.parameters = parameters;
+    };
+
+    PropagationMock.prototype.run = function (callback, finish) {
+      members.callback = callback;
+      finish();
+    };
+
+    var elements = [1, true, 'Hello, friend.'];
+    var callback = function () {};
+
+    var finish = function () {
+      expect(members.elements).to.equal(elements);
+      expect(members.parameters).to.deep.equal({});
+      expect(members.callback).to.equal(callback);
+    };
+
+    Tiler.propagations.mock = PropagationMock;
+
+    Tiler.propagate('Mock', elements, callback, finish);
+  });
+
   it('should convert a NodeList to an Array', function () {
     var p = document.createElement('p');
     var a = document.createElement('a');
@@ -120,6 +151,19 @@ describe('Tiler.propagation()', function () {
     };
 
     var propagation = Tiler.propagation('Mock', elems, params);
+
+    expect(propagation).to.be.instanceOf(Tiler.propagations.mock);
+  });
+
+  it('should accept optional parameters', function () {
+    var elems  = ['A', 'B'];
+
+    Tiler.propagations.mock = function (elements, parameters) {
+      expect(elements).to.equal(elems);
+      expect(parameters).to.deep.equal({});
+    };
+
+    var propagation = Tiler.propagation('Mock', elems);
 
     expect(propagation).to.be.instanceOf(Tiler.propagations.mock);
   });
