@@ -5,6 +5,7 @@ describe('Linear', function () {
   it('should expose the propagation interface', function () {
     expect(Tiler.propagations.linear).to.be.a('function');
     expect(Tiler.propagations.linear).to.respondTo('run');
+    expect(Tiler.propagations.all).to.respondTo('configure');
   });
 
   it('should run without optional parameter callback', function (done) {
