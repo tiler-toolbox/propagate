@@ -7,49 +7,86 @@ describe('Linear', function () {
     expect(Tiler.propagations.linear).to.respondTo('run');
   });
 
+  it('should run without optional parameter callback', function (done) {
+    var elements = ['A', 'B', 'C'];
+    var iterated = 0;
+
+    var parameters = {
+      rows:    1,
+      columns: 3,
+      delay:   1
+    };
+
+    Tiler.propagate('Linear', elements, parameters, function () {
+      if (++iterated === elements.length) {
+        done();
+      }
+    });
+  });
+
+  it('should ignore undefined elements', function (done) {
+    var elements = ['A', 'B', 'C'];
+    var result   = ['C', 'B', 'A'];
+
+    var parameters = {
+      rows:    2,
+      columns: 2,
+      delay:   1,
+      origin:  ['bottom', 'right']
+    };
+
+    Tiler.propagate('Linear', elements, parameters, function (element, index) {
+      expect(element).to.equal(result.shift());
+      expect(index).to.equal(elements.indexOf(element));
+    }, function () {
+      expect(result.length).to.equal(0);
+      done();
+    });
+  });
+
   it('should propagate linearly over all elements', function (done) {
-    var elements = ['A', 'B', 'C', 'D'];
+    var elements = ['A', 'B', 'C', 'D', 'E', 'F'];
 
     var scenarios = [
       {
         origin:    ['top', 'left'],
         direction: 'horizontal',
-        result:    ['A', 'B', 'C', 'D']
+        result:    ['A', 'B', 'C', 'D', 'E', 'F']
       },
       {
         origin:    ['bottom', 'left'],
         direction: 'horizontal',
-        result:    ['C', 'D', 'A', 'B']
+        result:    ['D', 'E', 'F', 'A', 'B', 'C']
       },
       {
         origin:    ['top', 'right'],
         direction: 'horizontal',
-        result:    ['B', 'A', 'D', 'C']
+        result:    ['C', 'B', 'A', 'F', 'E', 'D']
       },
       {
         origin:    ['bottom', 'right'],
         direction: 'horizontal',
-        result:    ['D', 'C', 'B', 'A']
+        result:    ['F', 'E', 'D', 'C', 'B', 'A']
       },
       {
         origin:    ['top', 'left'],
         direction: 'vertical',
-        result:    ['A', 'C', 'B', 'D']
+        result:    ['A', 'D', 'B', 'E', 'C', 'F']
       },
       {
         origin:    ['bottom', 'left'],
         direction: 'vertical',
-        result:    ['C', 'A', 'D', 'B']
+        result:    ['D', 'A', 'E', 'B', 'F', 'C']
       },
       {
         origin:    ['top', 'right'],
         direction: 'vertical',
-        result:    ['B', 'D', 'A', 'C']
+        result:    ['C', 'F', 'B', 'E', 'A', 'D']
       },
       {
         origin:    ['bottom', 'right'],
         direction: 'vertical',
-        result:    ['D', 'B', 'C', 'A']
+        result:    ['F', 'C', 'E', 'B', 'D', 'A']
       }
     ];
 
@@ -62,15 +99,16 @@ describe('Linear', function () {
 
       var parameters = {
         rows:    2,
-        columns: 2,
+        columns: 3,
         delay:   1,
 
         origin:    scenario.origin,
         direction: scenario.direction
       };
 
-      Tiler.propagate('Linear', elements, parameters, function (element) {
+      Tiler.propagate('Linear', elements, parameters, function (element, index) {
         expect(element).to.equal(scenario.result.shift());
+        expect(index).to.equal(elements.indexOf(element));
       }, function () {
         expect(scenario.result.length).to.equal(0);
         next();
