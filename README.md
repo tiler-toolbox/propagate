@@ -155,3 +155,23 @@ Trigger one element at a time and line by line.
 | `origin`    | Array  | Array with the vertical (`'top'` or `'bottom'`) and horizontal (`'left'` or `'right'`) origin of the propagation |
 | `direction` | String | Propagation direction (`'horizontal'` or `'vertical'`)                                                           |
 | `delay`     | Number | Delay in milliseconds between each propagation step                                                              |
+
+---
+
+#### Random
+
+```js
+// Direct call
+Tiler.propagate('Random', elements, parameters, callback, finish);
+
+// Instanciation
+var propagation = Tiler.propagation('Random', elements, parameters);
+```
+
+Trigger elements sequentially in random order.
+
+##### Parameters
+
+| Parameter   | Type   | Description                                         |
+| ----------- | ------ | --------------------------------------------------- |
+| `delay`     | Number | Delay in milliseconds between each propagation step |
