@@ -118,6 +118,10 @@ propagation.run(function (element, index) {
 
 #### All
 
+<p align="center">
+  <img alt="Logo" src="resources/propagations/all.gif" width="128">
+</p>
+
 ```js
 // Direct call
 Tiler.propagate('All', elements, callback, finish);
@@ -135,6 +139,10 @@ None
 ---
 
 #### Linear
+
+<p align="center">
+  <img alt="Logo" src="resources/propagations/linear.gif" width="128">
+</p>
 
 ```js
 // Direct call
@@ -159,6 +167,10 @@ Trigger one element at a time and line by line.
 ---
 
 #### Random
+
+<p align="center">
+  <img alt="Logo" src="resources/propagations/random.gif" width="128">
+</p>
 
 ```js
 // Direct call
