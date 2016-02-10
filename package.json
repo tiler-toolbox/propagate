@@ -20,7 +20,7 @@
     "build": "gulp build",
     "test": "karma start --single-run",
     "coverage": "karma start --single-run --reporters mocha,coverage",
-    "lint": "eslint lib test gulpfile.js",
+    "lint": "eslint lib test gulpfile.js --ignore-pattern test/polyfills/**",
     "preversion": "npm run lint && npm run coverage",
     "version": "sed -r \"/\\[Unreleased\\]\\[unreleased\\]/a \\\n## [$npm_package_version][`date +%F`]\" -i CHANGELOG.md && git add CHANGELOG.md",
     "postversion": "git push --follow-tags"

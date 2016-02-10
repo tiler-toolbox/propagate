@@ -9,4 +9,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `Tiler.propagation.register()` function
 - 'All' propagation
 - 'Linear' propagation
+- 'Random' propagation
 - Tests and lint

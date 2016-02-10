@@ -118,6 +118,10 @@ propagation.run(function (element, index) {
 
 #### All
 
+<p align="center">
+  <img alt="Logo" src="resources/propagations/all.gif" width="128">
+</p>
+
 ```js
 // Direct call
 Tiler.propagate('All', elements, callback, finish);
@@ -135,6 +139,10 @@ None
 ---
 
 #### Linear
+
+<p align="center">
+  <img alt="Logo" src="resources/propagations/linear.gif" width="128">
+</p>
 
 ```js
 // Direct call
@@ -155,3 +163,27 @@ Trigger one element at a time and line by line.
 | `origin`    | Array  | Array with the vertical (`'top'` or `'bottom'`) and horizontal (`'left'` or `'right'`) origin of the propagation |
 | `direction` | String | Propagation direction (`'horizontal'` or `'vertical'`)                                                           |
 | `delay`     | Number | Delay in milliseconds between each propagation step                                                              |
+
+---
+
+#### Random
+
+<p align="center">
+  <img alt="Logo" src="resources/propagations/random.gif" width="128">
+</p>
+
+```js
+// Direct call
+Tiler.propagate('Random', elements, parameters, callback, finish);
+
+// Instanciation
+var propagation = Tiler.propagation('Random', elements, parameters);
+```
+
+Trigger elements sequentially in random order.
+
+##### Parameters
+
+| Parameter   | Type   | Description                                         |
+| ----------- | ------ | --------------------------------------------------- |
+| `delay`     | Number | Delay in milliseconds between each propagation step |
